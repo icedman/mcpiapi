@@ -1,6 +1,6 @@
 [
 {
-  "modid": "mcpi",
+  "modid": "com.kbsriram.mcpi",
   "name": "Minecraft Pi API",
   "description": "Provide Minecraft Pi API for regular Minecraft.",
   "version": "${version}",

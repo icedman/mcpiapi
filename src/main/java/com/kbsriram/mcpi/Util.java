@@ -1,19 +1,20 @@
 package com.kbsriram.mcpi;
 
+
 import net.minecraft.entity.Entity;
-import net.minecraft.util.MathHelper;
+import net.minecraft.util.math.*;
 import net.minecraft.world.storage.WorldInfo;
 
 public class Util
 {
     public final static int asExtTileX(WorldInfo info, Entity e)
-    { return MathHelper.floor_double(e.posX) - info.getSpawnX(); }
+    { return MathHelper.floor(e.posX) - info.getSpawnX(); }
 
     public final static int asExtTileY(WorldInfo info, Entity e)
-    { return MathHelper.floor_double(e.posY) - info.getSpawnY(); }
+    { return MathHelper.floor(e.posY) - info.getSpawnY(); }
 
     public final static int asExtTileZ(WorldInfo info, Entity e)
-    { return MathHelper.floor_double(e.posZ) - info.getSpawnZ(); }
+    { return MathHelper.floor(e.posZ) - info.getSpawnZ(); }
 
     public final static double asExtTileXPos(WorldInfo info, Entity e)
     { return e.posX - info.getSpawnX(); }

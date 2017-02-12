@@ -51,7 +51,7 @@ public class CommandServer
         return null;
     }
 
-    final void removeClient(ClientHandler ch)
+    final public void removeClient(ClientHandler ch)
     {
         synchronized(m_client_lock) {
             m_clients.remove(ch);
@@ -114,4 +114,5 @@ public class CommandServer
     private int m_last_client_idx = 0;
     private boolean m_running = true;
     private final static Logger s_logger = LogManager.getLogger();
+	
 }

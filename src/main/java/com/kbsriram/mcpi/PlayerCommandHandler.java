@@ -1,8 +1,14 @@
 package com.kbsriram.mcpi;
 
+
 import java.util.List;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.util.Vec3;
+
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.math.Vec2f;
+import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.Vec3i;
+import net.minecraft.entity.player.EntityPlayer;
+//import net.minecraft.Vec3
 import net.minecraft.world.WorldServer;
 import net.minecraft.world.storage.WorldInfo;
 
@@ -15,9 +21,9 @@ public class PlayerCommandHandler
         { m_idIsNumber = idIsNumber; }
 
         @SuppressWarnings("unchecked")
-        protected final EntityPlayerMP getPlayer(WorldServer ws, String name)
+        protected final EntityPlayer getPlayer(WorldServer ws, String name)
         {
-            List<EntityPlayerMP> players = ws.playerEntities;
+            List<EntityPlayer> players = ws.playerEntities;
             if (players.size() == 0) { return null; }
 
             if (m_idIsNumber) {
@@ -28,7 +34,7 @@ public class PlayerCommandHandler
                     return null;
                 }
                 for (int i=players.size() - 1; i >= 0; i--) {
-                    EntityPlayerMP cur = players.get(i);
+                	EntityPlayer cur = players.get(i);
                     if (id == cur.getEntityId()) {
                         return cur;
                     }
@@ -43,8 +49,8 @@ public class PlayerCommandHandler
                 return players.get(0);
             }
             for (int i=players.size() - 1; i >= 0; i--) {
-                EntityPlayerMP cur = players.get(i);
-                if (name.equals(cur.getCommandSenderName())) {
+            	EntityPlayer cur = players.get(i);
+                if (name.equals( cur.getCommandSenderEntity().getName() )) {
                     return cur;
                 }
             }
@@ -66,7 +72,7 @@ public class PlayerCommandHandler
             if (args.length != 1) {
                 return "Usage: player.getTile([playername])";
             }
-            EntityPlayerMP host = getPlayer(ws, args[0]);
+            EntityPlayer host = getPlayer(ws, args[0]);
             if (host != null) {
                 WorldInfo info = ws.getWorldInfo();
                 return
@@ -94,7 +100,7 @@ public class PlayerCommandHandler
                 return "Usage: player.setTile([playername,]x,y,z)";
             }
             String player = (args.length == 3) ? null: args[0];
-            EntityPlayerMP host = getPlayer(ws, player);
+            EntityPlayer host = getPlayer(ws, player);
             if (host == null) {
                 return "No such player";
             }
@@ -121,7 +127,7 @@ public class PlayerCommandHandler
             if (args.length != 1) {
                 return "Usage: player.getRotation([playername])";
             }
-            EntityPlayerMP host = getPlayer(ws, args[0]);
+            EntityPlayer host = getPlayer(ws, args[0]);
             if (host != null) {
                 return String.valueOf(host.rotationYaw);
             }
@@ -144,7 +150,7 @@ public class PlayerCommandHandler
             if (args.length != 1) {
                 return "Usage: player.getPitch([playername])";
             }
-            EntityPlayerMP host = getPlayer(ws, args[0]);
+            EntityPlayer host = getPlayer(ws, args[0]);
             if (host != null) {
                 return String.valueOf(host.rotationPitch);
             }
@@ -167,9 +173,9 @@ public class PlayerCommandHandler
             if (args.length != 1) {
                 return "Usage: player.getDirection([playername])";
             }
-            EntityPlayerMP host = getPlayer(ws, args[0]);
+            EntityPlayer host = getPlayer(ws, args[0]);
             if (host != null) {
-                Vec3 dir = host.getLookVec();
+                Vec3d dir = host.getLookVec();
                 return String.valueOf(dir.xCoord)+","+
                     String.valueOf(dir.yCoord)+","+
                     String.valueOf(dir.zCoord);
@@ -193,7 +199,7 @@ public class PlayerCommandHandler
             if (args.length != 1) {
                 return "Usage: player.getPos([playername])";
             }
-            EntityPlayerMP host = getPlayer(ws, args[0]);
+            EntityPlayer host = getPlayer(ws, args[0]);
             if (host != null) {
                 WorldInfo info = ws.getWorldInfo();
                 return
@@ -221,7 +227,7 @@ public class PlayerCommandHandler
                 return "Usage: player.setPos([playername,]x,y,z)";
             }
             String player = (args.length == 3) ? null: args[0];
-            EntityPlayerMP host = getPlayer(ws, player);
+            EntityPlayer host = getPlayer(ws, player);
             if (host == null) {
                 return "No such player";
             }

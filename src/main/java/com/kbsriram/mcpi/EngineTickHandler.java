@@ -1,9 +1,10 @@
 package com.kbsriram.mcpi;
 
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.common.gameevent.TickEvent.Phase;
-import cpw.mods.fml.common.gameevent.TickEvent.WorldTickEvent;
-import cpw.mods.fml.relauncher.Side;
+
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.TickEvent.Phase;
+import net.minecraftforge.fml.common.gameevent.TickEvent.WorldTickEvent;
+import net.minecraftforge.fml.relauncher.Side;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.BlockingQueue;
@@ -14,17 +15,23 @@ import org.apache.logging.log4j.Logger;
 
 public class EngineTickHandler
 {
-    public EngineTickHandler(CommandServer cs)
-    { m_cs = cs; }
+	public static MinecraftServer ms = null;
+	
+    public EngineTickHandler(CommandServer cs, MinecraftServer s)
+    { 
+    	m_cs = cs;
+    	ms = s;
+    }
 
     public final static WorldServer getWorldServer()
     {
-        final MinecraftServer ms = MinecraftServer.getServer();
+
+        //final MinecraftServer ms = null; // TODO MinecraftServer.getServer();
         if (ms == null) {
             return null;
         }
-        final WorldServer ws[] = ms.worldServers;
-        if ((ws.length == 0) || ws[0].isRemote) {
+        final WorldServer ws[] = ms.worlds;
+        if (ws == null || (ws.length == 0) || ws[0].isRemote) {
             return null;
         }
         return ws[0];
